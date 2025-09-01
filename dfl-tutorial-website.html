@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DFL @ ICAIF 2025 | Decision-Focused Learning</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #000000;
+            --dark: #0a0a0a;
+            --darker: #050505;
+            --white: #ffffff;
+            --gray: #888888;
+            --light-gray: #cccccc;
+            --red: #ff0040;
+            --yellow: #ffcc00;
+            --blue: #0080ff;
+            --purple: #8000ff;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--black);
+            color: var(--white);
+            overflow-x: hidden;
+            cursor: default;
+        }
+
+        /* Grain Texture */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.05;
+            z-index: 1;
+            pointer-events: none;
+            background: url('data:image/svg+xml,%3Csvg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)" opacity="1"/%3E%3C/svg%3E');
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 2rem 4rem;
+            background: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%);
+            transition: all 0.3s;
+        }
+
+        nav.scrolled {
+            padding: 1rem 4rem;
+            background: rgba(0,0,0,0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .nav-content {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            color: var(--white);
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--gray);
+            text-decoration: none;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-size: 0.875rem;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--red);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--white);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 8rem 4rem 4rem;
+            background: radial-gradient(ellipse at center, rgba(128, 0, 255, 0.1) 0%, transparent 70%);
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .hero-bg::before {
+            content: 'DFL';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 50vw;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.02);
+            letter-spacing: -0.05em;
+            z-index: -1;
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: var(--red);
+            color: var(--white);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-size: 0.875rem;
+            margin-bottom: 3rem;
+            clip-path: polygon(0 0, 100% 0, 95% 100%, 0% 100%);
+        }
+
+        h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(5rem, 15vw, 12rem);
+            line-height: 0.85;
+            letter-spacing: -0.02em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+        }
+
+        .hero-title-line1 {
+            display: block;
+            color: var(--white);
+        }
+
+        .hero-title-line2 {
+            display: block;
+            color: transparent;
+            -webkit-text-stroke: 2px var(--white);
+            text-stroke: 2px var(--white);
+        }
+
+        .hero-title-accent {
+            color: var(--red);
+        }
+
+        .hero-subtitle {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 4rem;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 4rem;
+            margin-top: 4rem;
+        }
+
+        .hero-left {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .hero-description {
+            font-size: 1.125rem;
+            line-height: 1.8;
+            color: var(--light-gray);
+            max-width: 600px;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 1.25rem 3rem;
+            font-family: 'Oswald', sans-serif;
+            font-weight: 600;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--red);
+            color: var(--white);
+            clip-path: polygon(0 0, 100% 0, 95% 100%, 5% 100%);
+        }
+
+        .btn-primary:hover {
+            transform: translateX(5px);
+            filter: brightness(1.2);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+
+        .btn-outline:hover {
+            background: var(--white);
+            color: var(--black);
+        }
+
+        /* Stats */
+        .stats-block {
+            background: var(--darker);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 2rem;
+        }
+
+        .stat-item {
+            padding: 1.5rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .stat-item:last-child {
+            border-bottom: none;
+        }
+
+        .stat-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3rem;
+            color: var(--red);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--gray);
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 8rem 4rem;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            margin-bottom: 4rem;
+        }
+
+        .section-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 8rem;
+            color: rgba(255,255,255,0.05);
+            line-height: 1;
+            margin-bottom: -2rem;
+        }
+
+        h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 4rem;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.25rem;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* Topics Grid */
+        .topics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+            background: rgba(255,255,255,0.1);
+            margin-top: 4rem;
+        }
+
+        .topic-card {
+            background: var(--black);
+            padding: 3rem 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .topic-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--red);
+            transform: translateX(-100%);
+            transition: transform 0.3s;
+        }
+
+        .topic-card:hover::before {
+            transform: translateX(0);
+        }
+
+        .topic-card:hover {
+            background: var(--darker);
+        }
+
+        .topic-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 4rem;
+            color: rgba(255,255,255,0.1);
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+
+        .topic-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            color: var(--white);
+        }
+
+        .topic-description {
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        /* Schedule */
+        .schedule-container {
+            margin-top: 4rem;
+        }
+
+        .schedule-item {
+            display: grid;
+            grid-template-columns: 150px 1fr 200px;
+            gap: 3rem;
+            padding: 2rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s;
+        }
+
+        .schedule-item:hover {
+            padding-left: 2rem;
+            border-left: 4px solid var(--red);
+            background: linear-gradient(90deg, rgba(255,0,64,0.1) 0%, transparent 50%);
+        }
+
+        .schedule-time {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            color: var(--red);
+        }
+
+        .schedule-content h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .schedule-content p {
+            color: var(--gray);
+        }
+
+        .schedule-speaker {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--gray);
+            align-self: center;
+            text-align: right;
+        }
+
+        /* Speakers */
+        .speakers-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .speaker-card {
+            text-align: center;
+            position: relative;
+            padding: 2rem 1rem;
+            background: var(--darker);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s;
+        }
+
+        .speaker-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--red);
+            background: linear-gradient(180deg, rgba(255,0,64,0.1) 0%, var(--darker) 100%);
+        }
+
+        .speaker-avatar {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, var(--red), var(--purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            color: var(--white);
+            clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
+        }
+
+        .speaker-name {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.125rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .speaker-role {
+            color: var(--red);
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .speaker-affiliation {
+            color: var(--gray);
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Important Info */
+        .info-section {
+            background: var(--darker);
+            border-left: 4px solid var(--red);
+            margin: 8rem 0;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4rem;
+            padding: 4rem;
+        }
+
+        .info-item h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            color: var(--red);
+        }
+
+        .info-item p {
+            color: var(--light-gray);
+            line-height: 1.8;
+        }
+
+        .info-item ul {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .info-item li {
+            padding: 0.5rem 0;
+            color: var(--light-gray);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 8rem 4rem;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(255,0,64,0.1) 0%, rgba(128,0,255,0.1) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: 'REGISTER';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 20vw;
+            color: rgba(255,255,255,0.02);
+            letter-spacing: 0.1em;
+            z-index: 0;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 5rem;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .cta-subtitle {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            color: var(--gray);
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--darker);
+            padding: 4rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .footer-brand h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .footer-links h4 {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1.5rem;
+            color: var(--red);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.3s;
+            display: block;
+            padding: 0.5rem 0;
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: var(--gray);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .topics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .speakers-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 4rem;
+            }
+            
+            .hero-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .topics-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .schedule-item {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .speakers-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .info-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-content">
+            <div class="nav-logo">DFL × ICAIF'25</div>
+            <ul class="nav-links">
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#topics">Topics</a></li>
+                <li><a href="#schedule">Schedule</a></li>
+                <li><a href="#speakers">Speakers</a></li>
+                <li><a href="#register">Register</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <div class="hero-badge">ICAIF 2025 TUTORIAL</div>
+            
+            <h1>
+                <span class="hero-title-line1">DECISION-FOCUSED</span>
+                <span class="hero-title-line2">LEARNING<span class="hero-title-accent">.</span></span>
+            </h1>
+            
+            <p class="hero-subtitle">Financial Optimization Through End-to-End Learning</p>
+            
+            <div class="hero-grid">
+                <div class="hero-left">
+                    <p class="hero-description">
+                        A paradigm shift in machine learning for optimization. Learn how to align ML objectives 
+                        directly with decision quality, not just prediction accuracy. Master the techniques that 
+                        are revolutionizing portfolio optimization and financial decision-making.
+                    </p>
+                    
+                    <div class="hero-cta">
+                        <a href="#register" class="btn btn-primary">Register Now</a>
+                        <a href="#overview" class="btn btn-outline">Learn More</a>
+                    </div>
+                </div>
+                
+                <div class="stats-block">
+                    <div class="stat-item">
+                        <div class="stat-number">DEC 14</div>
+                        <div class="stat-label">Tutorial Date</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">2 HRS</div>
+                        <div class="stat-label">Duration</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">5</div>
+                        <div class="stat-label">Expert Speakers</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">3</div>
+                        <div class="stat-label">Hands-on Labs</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Topics Section -->
+    <section id="topics" class="container">
+        <div class="section-header">
+            <div class="section-number">01</div>
+            <h2>What You'll Master</h2>
+            <p class="section-subtitle">Six Core Topics in Decision-Focused Learning</p>
+        </div>
+        
+        <div class="topics-grid">
+            <div class="topic-card">
+                <div class="topic-number">01</div>
+                <h3 class="topic-title">DFL Foundations</h3>
+                <p class="topic-description">
+                    Mathematical framework, gradient flow through optimization layers, and theoretical underpinnings.
+                </p>
+            </div>
+            <div class="topic-card">
+                <div class="topic-number">02</div>
+                <h3 class="topic-title">PyTorch Implementation</h3>
+                <p class="topic-description">
+                    Hands-on coding with cvxpylayers for differentiable convex optimization in neural networks.
+                </p>
+            </div>
+            <div class="topic-card">
+                <div class="topic-number">03</div>
+                <h3 class="topic-title">Portfolio Optimization</h3>
+                <p class="topic-description">
+                    Apply DFL to Markowitz mean-variance optimization with real market data experiments.
+                </p>
+            </div>
+            <div class="topic-card">
+                <div class="topic-number">04</div>
+                <h3 class="topic-title">Goal-Based Investment</h3>
+                <p class="topic-description">
+                    Extension to personalized investment strategies with multiple objectives and constraints.
+                </p>
+            </div>
+            <div class="topic-card">
+                <div class="topic-number">05</div>
+                <h3 class="topic-title">Index Tracking</h3>
+                <p class="topic-description">
+                    Cardinality-constrained optimization and semidefinite relaxation techniques.
+                </p>
+            </div>
+            <div class="topic-card">
+                <div class="topic-number">06</div>
+                <h3 class="topic-title">Future Directions</h3>
+                <p class="topic-description">
+                    Open research challenges and integration with reinforcement learning approaches.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Schedule Section -->
+    <section id="schedule" class="container">
+        <div class="section-header">
+            <div class="section-number">02</div>
+            <h2>Tutorial Schedule</h2>
+            <p class="section-subtitle">Two Hours of Intensive Learning</p>
+        </div>
+        
+        <div class="schedule-container">
+            <div class="schedule-item">
+                <div class="schedule-time">14:00</div>
+                <div class="schedule-content">
+                    <h3>Introduction & Motivation</h3>
+                    <p>Overview of DFL paradigm and motivation in financial contexts</p>
+                </div>
+                <div class="schedule-speaker">Yongjae Lee</div>
+            </div>
+            <div class="schedule-item">
+                <div class="schedule-time">14:20</div>
+                <div class="schedule-content">
+                    <h3>DFL Theoretical Foundations</h3>
+                    <p>Mathematical framework and PyTorch implementation basics</p>
+                </div>
+                <div class="schedule-speaker">Haeun Jeon</div>
+            </div>
+            <div class="schedule-item">
+                <div class="schedule-time">14:50</div>
+                <div class="schedule-content">
+                    <h3>Mean-Variance Optimization Lab</h3>
+                    <p>Live coding session with real market data</p>
+                </div>
+                <div class="schedule-speaker">Junhyeong Lee</div>
+            </div>
+            <div class="schedule-item">
+                <div class="schedule-time">15:20</div>
+                <div class="schedule-content">
+                    <h3>Advanced Applications</h3>
+                    <p>Goal-based investment and partial index tracking</p>
+                </div>
+                <div class="schedule-speaker">Hyunglip Bae</div>
+            </div>
+            <div class="schedule-item">
+                <div class="schedule-time">15:50</div>
+                <div class="schedule-content">
+                    <h3>Future Directions & Q&A</h3>
+                    <p>Open challenges and interactive discussion</p>
+                </div>
+                <div class="schedule-speaker">Yongjae Lee</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Speakers Section -->
+    <section id="speakers" class="container">
+        <div class="section-header">
+            <div class="section-number">03</div>
+            <h2>Expert Instructors</h2>
+            <p class="section-subtitle">Leaders from UNIST & KAIST</p>
+        </div>
+        
+        <div class="speakers-grid">
+            <div class="speaker-card">
+                <div class="speaker-avatar">YL</div>
+                <h3 class="speaker-name">Yongjae Lee</h3>
+                <p class="speaker-role">Lead Organizer</p>
+                <p class="speaker-affiliation">UNIST</p>
+            </div>
+            <div class="speaker-card">
+                <div class="speaker-avatar">WK</div>
+                <h3 class="speaker-name">Woo Chang Kim</h3>
+                <p class="speaker-role">Co-Organizer</p>
+                <p class="speaker-affiliation">KAIST</p>
+            </div>
+            <div class="speaker-card">
+                <div class="speaker-avatar">JL</div>
+                <h3 class="speaker-name">Junhyeong Lee</h3>
+                <p class="speaker-role">Instructor</p>
+                <p class="speaker-affiliation">UNIST</p>
+            </div>
+            <div class="speaker-card">
+                <div class="speaker-avatar">HB</div>
+                <h3 class="speaker-name">Hyunglip Bae</h3>
+                <p class="speaker-role">Instructor</p>
+                <p class="speaker-affiliation">KAIST</p>
+            </div>
+            <div class="speaker-card">
+                <div class="speaker-avatar">HJ</div>
+                <h3 class="speaker-name">Haeun Jeon</h3>
+                <p class="speaker-role">Instructor</p>
+                <p class="speaker-affiliation">KAIST</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Important Info -->
+    <section class="info-section">
+        <div class="container">
+            <div class="info-grid">
+                <div class="info-item">
+                    <h3>Prerequisites</h3>
+                    <ul>
+                        <li>Basic Machine Learning</li>
+                        <li>Python Programming</li>
+                        <li>Linear Algebra</li>
+                        <li>Optimization Theory (helpful)</li>
+                    </ul>
+                </div>
+                <div class="info-item">
+                    <h3>What You'll Receive</h3>
+                    <ul>
+                        <li>Complete Lecture Slides</li>
+                        <li>Jupyter Notebooks</li>
+                        <li>Real Market Datasets</li>
+                        <li>GitHub Repository Access</li>
+                    </ul>
+                </div>
+                <div class="info-item">
+                    <h3>Key Dates</h3>
+                    <ul>
+                        <li>Early Registration: Oct 31</li>
+                        <li>Regular Registration: Nov 30</li>
+                        <li>Tutorial Date: Dec 14</li>
+                        <li>Location: Vancouver, Canada</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="register" class="cta-section">
+        <div class="cta-content">
+            <h2 class="cta-title">Ready to Transform Your Approach?</h2>
+            <p class="cta-subtitle">Join Us at ICAIF 2025</p>
+            <div style="margin-top: 3rem;">
+                <a href="https://icaif.org" class="btn btn-primary" style="margin-right: 2rem;">Register for ICAIF 2025</a>
+                <a href="#" class="btn btn-outline">Download Materials</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>DFL @ ICAIF'25</h3>
+                <p style="color: var(--gray); margin-top: 1rem;">
+                    Decision-Focused Learning in Financial Optimization<br>
+                    A collaboration between UNIST and KAIST
+                </p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#overview">Overview</a></li>
+                    <li><a href="#topics">Topics</a></li>
+                    <li><a href="#schedule">Schedule</a></li>
+                    <li><a href="#speakers">Speakers</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="#">Tutorial Slides</a></li>
+                    <li><a href="#">Code Repository</a></li>
+                    <li><a href="#">Datasets</a></li>
+                    <li><a href="#">References</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Contact</h4>
+                <ul>
+                    <li><a href="mailto:yongjaelee@unist.ac.kr">yongjaelee@unist.ac.kr</a></li>
+                    <li><a href="mailto:wkim@kaist.ac.kr">wkim@kaist.ac.kr</a></li>
+                    <li><a href="https://icaif.org">ICAIF 2025</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            © 2025 Decision-Focused Learning Tutorial • ICAIF 2025 • Vancouver, Canada
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
